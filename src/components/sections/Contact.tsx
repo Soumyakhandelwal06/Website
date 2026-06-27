@@ -58,7 +58,7 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-off-white relative overflow-hidden">
+    <section id="contact" className="py-32 bg-gradient-to-b from-[#F3F6FB] via-off-white to-[#F0F4FA] relative overflow-hidden noise-bg">
       {/* Confetti */}
       {confetti.map((piece) => (
         <div
@@ -75,23 +75,28 @@ export default function Contact() {
         />
       ))}
 
-      <div className="max-w-6xl mx-auto px-6" ref={ref}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      {/* Radial glow background spots */}
+      <div className="absolute top-[20%] left-[-15%] w-[450px] h-[450px] bg-emerald-brand/5 rounded-full blur-[110px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[-15%] w-[400px] h-[400px] bg-teal-accent/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left side */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
-            <span className="text-emerald-brand text-sm font-bold tracking-widest uppercase">
+            <span className="text-emerald-brand text-xs font-bold tracking-widest uppercase">
               Get In Touch
             </span>
-            <h2 className="font-clash font-bold text-4xl md:text-5xl text-navy mt-3 leading-tight">
+            <h2 className="font-clash font-bold text-4xl md:text-5xl text-navy leading-tight tracking-tight">
               Start Your{" "}
-              <span className="relative inline-block">
+              <span className="relative inline-block pb-1">
                 Journey
                 <svg
-                  className="absolute -bottom-2 left-0 w-full"
+                  className="absolute -bottom-1 left-0 w-full"
                   viewBox="0 0 200 12"
                   fill="none"
                 >
@@ -99,30 +104,30 @@ export default function Contact() {
                     className={`svg-draw ${isInView ? "drawn" : ""}`}
                     d="M2 8 C50 2, 100 2, 198 8"
                     stroke="#d4af37"
-                    strokeWidth="4"
+                    strokeWidth="3.5"
                     strokeLinecap="round"
                   />
                 </svg>
               </span>
             </h2>
-            <p className="text-navy/50 text-lg mt-4 leading-relaxed max-w-md">
+            <p className="text-navy/55 text-lg leading-relaxed max-w-md">
               Take the first step towards academic excellence. Book a free demo class and experience the Ascend difference.
             </p>
 
             {/* Contact info */}
-            <div className="mt-10 space-y-5">
+            <div className="mt-12 space-y-6">
               {contactInfo.map((info, i) => (
                 <motion.div
                   key={info.label}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
-                  className="flex items-center gap-4"
+                  className="flex items-center gap-5 group"
                 >
-                  <div className="w-10 h-10 bg-emerald-brand/10 rounded-xl flex items-center justify-center text-emerald-brand">
+                  <div className="w-12 h-12 bg-gradient-to-br from-white to-white/40 border border-navy/5 rounded-2xl flex items-center justify-center text-emerald-brand shadow-premium-sm group-hover:scale-105 transition-all duration-300">
                     {info.icon}
                   </div>
-                  <span className="text-navy/70 font-medium">{info.label}</span>
+                  <span className="text-navy/85 font-semibold text-sm tracking-wide">{info.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -138,9 +143,9 @@ export default function Contact() {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="bg-white rounded-3xl border border-gray-100 p-12 text-center h-full flex flex-col items-center justify-center"
+                className="bg-white/[0.8] backdrop-blur-xl rounded-[2.25rem] border border-white/80 p-12 text-center h-full flex flex-col items-center justify-center shadow-premium-lg"
               >
-                <div className="w-16 h-16 bg-emerald-brand rounded-full flex items-center justify-center mb-6">
+                <div className="w-16 h-16 bg-emerald-brand rounded-full flex items-center justify-center mb-6 shadow-lg shadow-emerald-brand/20">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
@@ -148,12 +153,12 @@ export default function Contact() {
                 <h3 className="font-clash font-bold text-2xl text-navy mb-2">
                   Thank You!
                 </h3>
-                <p className="text-navy/50">
+                <p className="text-navy/50 max-w-sm">
                   We&apos;ll get back to you within 24 hours to schedule your free demo class.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-6 text-emerald-brand font-semibold text-sm hover:underline"
+                  className="mt-6 text-emerald-brand font-bold text-sm hover:underline hover:text-emerald-light transition-colors"
                 >
                   Submit another response
                 </button>
@@ -161,9 +166,9 @@ export default function Contact() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="bg-white rounded-3xl border border-gray-100 p-8 md:p-10 shadow-xl shadow-black/5 space-y-6"
+                className="bg-white/[0.7] backdrop-blur-xl rounded-[2.25rem] border border-white/85 p-8 md:p-11 shadow-premium-lg space-y-6"
               >
-                <h3 className="font-clash font-bold text-xl text-navy mb-2">
+                <h3 className="font-clash font-bold text-2xl text-navy mb-2 tracking-wide">
                   Book a Free Demo Class
                 </h3>
 
@@ -173,7 +178,7 @@ export default function Contact() {
                     type="text"
                     required
                     placeholder=" "
-                    className="form-input w-full bg-gray-50 border border-gray-200 rounded-xl px-4 pt-6 pb-2 text-navy outline-none"
+                    className="form-input w-full bg-white/45 border border-navy/10 rounded-2xl px-5 pt-6.5 pb-2.5 text-navy font-semibold outline-none focus:bg-white focus:border-emerald-brand/40 transition-all duration-300 shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]"
                     id="student-name"
                   />
                   <label htmlFor="student-name" className="floating-label">
@@ -188,7 +193,7 @@ export default function Contact() {
                     required
                     placeholder=" "
                     inputMode="tel"
-                    className="form-input w-full bg-gray-50 border border-gray-200 rounded-xl px-4 pt-6 pb-2 text-navy outline-none"
+                    className="form-input w-full bg-white/45 border border-navy/10 rounded-2xl px-5 pt-6.5 pb-2.5 text-navy font-semibold outline-none focus:bg-white focus:border-emerald-brand/40 transition-all duration-300 shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]"
                     id="phone"
                   />
                   <label htmlFor="phone" className="floating-label">
@@ -200,7 +205,7 @@ export default function Contact() {
                 <div className="relative">
                   <select
                     required
-                    className="form-input w-full bg-gray-50 border border-gray-200 rounded-xl px-4 pt-6 pb-2 text-navy outline-none appearance-none"
+                    className="form-input w-full bg-white/45 border border-navy/10 rounded-2xl px-5 pt-6.5 pb-2.5 text-navy font-semibold outline-none focus:bg-white focus:border-emerald-brand/40 transition-all duration-300 appearance-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]"
                     defaultValue=""
                     id="student-class"
                   >
@@ -214,11 +219,11 @@ export default function Contact() {
                     ))}
                     <option value="entrance">Entrance Prep</option>
                   </select>
-                  <label htmlFor="student-class" className="floating-label" style={{ top: "8px", transform: "none", fontSize: "11px", color: "#047857", fontWeight: 600 }}>
+                  <label htmlFor="student-class" className="floating-label" style={{ top: "8px", transform: "none", fontSize: "11px", color: "var(--color-emerald-brand)", fontWeight: 600 }}>
                     Class
                   </label>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2">
+                  <div className="absolute right-5 top-[55%] -translate-y-1/2 pointer-events-none">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5">
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </div>
@@ -228,7 +233,7 @@ export default function Contact() {
                 <div className="relative">
                   <select
                     required
-                    className="form-input w-full bg-gray-50 border border-gray-200 rounded-xl px-4 pt-6 pb-2 text-navy outline-none appearance-none"
+                    className="form-input w-full bg-white/45 border border-navy/10 rounded-2xl px-5 pt-6.5 pb-2.5 text-navy font-semibold outline-none focus:bg-white focus:border-emerald-brand/40 transition-all duration-300 appearance-none shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)]"
                     defaultValue=""
                     id="syllabus"
                   >
@@ -239,11 +244,11 @@ export default function Contact() {
                     <option value="cbse">CBSE</option>
                     <option value="entrance">Entrance (NEET/KEAM)</option>
                   </select>
-                  <label htmlFor="syllabus" className="floating-label" style={{ top: "8px", transform: "none", fontSize: "11px", color: "#047857", fontWeight: 600 }}>
+                  <label htmlFor="syllabus" className="floating-label" style={{ top: "8px", transform: "none", fontSize: "11px", color: "var(--color-emerald-brand)", fontWeight: 600 }}>
                     Syllabus
                   </label>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#999" strokeWidth="2">
+                  <div className="absolute right-5 top-[55%] -translate-y-1/2 pointer-events-none">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5">
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </div>
@@ -252,12 +257,12 @@ export default function Contact() {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="btn-sweep w-full bg-emerald-brand text-white font-bold py-4 rounded-xl text-base hover:shadow-lg transition-shadow"
+                  className="btn-sweep w-full bg-gradient-to-r from-emerald-brand to-emerald-dark text-white font-bold py-4.5 rounded-2xl text-base hover:shadow-lg hover:shadow-emerald-brand/20 transition-all duration-300 cursor-pointer shadow-premium-sm uppercase tracking-wider"
                 >
-                  Book Free Demo →
+                  Book Free Demo Class
                 </button>
 
-                <p className="text-center text-navy/30 text-xs">
+                <p className="text-center text-navy/30 text-xs font-semibold uppercase tracking-wider">
                   No commitment required. 100% free.
                 </p>
               </form>

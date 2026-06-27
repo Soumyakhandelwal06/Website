@@ -74,9 +74,12 @@ export default function Philosophy() {
     <section
       id="philosophy"
       ref={sectionRef}
-      className="bg-navy relative"
+      className="bg-gradient-to-b from-[#0A0D18] to-[#05070A] relative noise-bg"
       style={{ overflow: gsapReady ? "visible" : "hidden" }}
     >
+      {/* Background decoration radial glow */}
+      <div className="absolute top-1/4 left-1/3 w-[50vw] h-[50vw] bg-emerald-brand/5 rounded-full blur-[140px] pointer-events-none" />
+
       <div
         ref={trackRef}
         className="flex"
@@ -90,39 +93,42 @@ export default function Philosophy() {
             key={panel.title}
             className="w-screen min-h-screen flex items-center justify-center px-8 md:px-20 relative flex-shrink-0"
           >
-            {/* Panel number */}
-            <div className="absolute top-20 left-8 md:left-20 text-white/5 font-clash font-bold text-[150px] md:text-[200px] leading-none select-none pointer-events-none">
+            {/* Panel number with subtle stroke outline */}
+            <div className="absolute top-24 left-8 md:left-24 text-white/[0.02] font-clash font-bold text-[180px] md:text-[280px] leading-none select-none pointer-events-none tracking-tighter" style={{ WebkitTextStroke: "1px rgba(255,255,255,0.03)" }}>
               {String(i + 1).padStart(2, "0")}
             </div>
 
-            <div className="max-w-2xl relative z-10">
-              <span className="text-gold-brand text-sm font-bold tracking-widest uppercase block mb-4">
+            <div className="max-w-2xl relative z-10 space-y-6">
+              <span className="text-gold-brand text-xs font-bold tracking-widest uppercase block">
                 {panel.subtitle}
               </span>
-              <h2 className="font-clash font-bold text-4xl md:text-6xl text-white mb-6 leading-tight">
+              <h2 className="font-clash font-bold text-4xl md:text-6xl text-white leading-tight tracking-tight">
                 {panel.title}
               </h2>
               <p className="text-white/60 text-lg md:text-xl leading-relaxed">
                 {panel.description}
               </p>
-              <div className="w-20 h-1 bg-gold-brand rounded-full mt-8" />
+              <div className="w-16 h-1 bg-gradient-to-r from-gold-brand to-gold-dark rounded-full mt-8" />
             </div>
           </div>
         ))}
 
         {/* Final quote panel */}
-        <div className="w-screen min-h-screen flex items-center justify-center px-8 md:px-20 flex-shrink-0">
-          <div className="max-w-3xl text-center">
-            <div className="text-gold-brand/20 font-clash text-[80px] md:text-[120px] leading-none mb-4">
+        <div className="w-screen min-h-screen flex items-center justify-center px-8 md:px-20 flex-shrink-0 relative">
+          {/* Subtle glow behind quote */}
+          <div className="absolute w-96 h-96 bg-gold-brand/5 rounded-full blur-[100px] pointer-events-none" />
+          
+          <div className="max-w-3xl text-center relative z-10 px-8 py-12 rounded-3xl bg-white/[0.01] border border-white/5 backdrop-blur-xl shadow-premium-lg">
+            <div className="text-gold-brand/15 text-glow-orange font-clash text-[100px] md:text-[140px] leading-none mb-2">
               &ldquo;
             </div>
             <h2
               id="philosophy-quote"
-              className="font-clash font-bold text-3xl md:text-5xl text-white leading-tight opacity-0 translate-y-8"
+              className="font-clash font-bold text-3xl md:text-5xl text-white leading-snug tracking-tight opacity-0 translate-y-8 px-4"
             >
               {quote}
             </h2>
-            <div className="mt-8 text-white/40 text-sm font-medium tracking-wider uppercase">
+            <div className="mt-8 text-white/40 text-xs font-bold tracking-widest uppercase">
               — The Ascend Academy Promise
             </div>
           </div>

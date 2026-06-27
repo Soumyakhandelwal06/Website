@@ -76,56 +76,61 @@ export default function WhyChooseUs() {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="why-choose-us" className="py-24 bg-off-white relative" ref={sectionRef}>
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="why-choose-us" className="py-32 bg-gradient-to-b from-off-white via-[#F4F7FB] to-off-white relative overflow-hidden noise-bg" ref={sectionRef}>
+      {/* Visual decorative blobs */}
+      <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-emerald-brand/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[-10%] w-[350px] h-[350px] bg-gold-brand/5 rounded-full blur-[90px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Left - Sticky heading */}
-          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
+          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start space-y-6">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6 }}
+              className="space-y-4"
             >
-              <span className="text-emerald-brand text-sm font-bold tracking-widest uppercase">
+              <span className="text-emerald-brand text-xs font-bold tracking-widest uppercase">
                 Why Choose Us
               </span>
-              <h2 className="font-clash font-bold text-4xl md:text-5xl text-navy mt-3 leading-tight">
-                The Ascend{" "}
+              <h2 className="font-clash font-bold text-4xl md:text-5xl text-navy leading-tight tracking-tight">
+                The Ascend <br />
                 <span className="text-emerald-brand">Advantage</span>
               </h2>
-              <p className="text-navy/60 text-lg mt-4 leading-relaxed">
+              <p className="text-navy/60 text-lg leading-relaxed pt-2">
                 We don&apos;t just prepare students for exams — we build
                 confident, curious, and capable individuals ready to take on
                 the world.
               </p>
-              <div className="w-16 h-1 bg-gold-brand rounded-full mt-6" />
+              <div className="w-16 h-1 bg-gradient-to-r from-gold-brand to-gold-dark rounded-full mt-8" />
             </motion.div>
           </div>
 
           {/* Right - Feature cards grid */}
-          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
             {FEATURES.map((feature, i) => (
               <motion.div
                 key={feature.title}
                 initial={{
                   opacity: 0,
-                  x: i % 2 === 0 ? -40 : 40,
+                  y: 40,
                 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{
-                  delay: i * 0.08,
-                  duration: 0.5,
+                  delay: i * 0.06,
+                  duration: 0.6,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="feature-card group bg-white rounded-2xl p-6 border border-gray-100 hover:border-emerald-brand/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-brand/5"
+                className="feature-card group bg-white/[0.7] backdrop-blur-md rounded-3xl p-8 border border-white/50 shadow-premium-sm hover:bg-white hover:border-emerald-brand/10 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-premium-lg"
               >
-                <div className="w-12 h-12 bg-emerald-brand/10 rounded-xl flex items-center justify-center text-emerald-brand mb-4 group-hover:bg-emerald-brand group-hover:text-white transition-all duration-300">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-brand/10 to-teal-accent/5 rounded-2xl flex items-center justify-center text-emerald-brand mb-6 shadow-premium-sm group-hover:from-emerald-brand group-hover:to-emerald-dark group-hover:text-white group-hover:scale-105 transition-all duration-500">
                   {featureIcons[feature.icon] || featureIcons.live}
                 </div>
-                <h3 className="font-clash font-semibold text-lg text-navy mb-2">
+                <h3 className="font-clash font-bold text-xl text-navy mb-3 tracking-wide">
                   {feature.title}
                 </h3>
-                <p className="text-navy/50 text-sm leading-relaxed">
+                <p className="text-navy/55 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>

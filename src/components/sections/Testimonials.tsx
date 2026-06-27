@@ -4,6 +4,15 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import { TESTIMONIALS } from "@/lib/constants";
 
+const getInitials = (name: string) => {
+  return name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .substring(0, 2)
+    .toUpperCase();
+};
+
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
@@ -98,23 +107,30 @@ export default function Testimonials() {
             return (
               <div
                 key={i}
-                className="testimonial-card absolute w-full max-w-lg mx-auto"
+                className="testimonial-card absolute w-full max-w-lg mx-auto animate-badge-float"
                 style={{
                   ...style,
                   transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                   pointerEvents: i === activeIndex ? "auto" : "none",
+                  animationDelay: `${i * 0.25}s`,
                 }}
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 mx-4">
+                <div className="bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 mx-4 shadow-premium-lg hover:border-white/20 transition-all duration-300 relative overflow-hidden group">
+                  {/* Decorative quote mark */}
+                  <div className="absolute right-6 top-2 text-white/[0.02] text-[100px] font-clash select-none pointer-events-none">
+                    &ldquo;
+                  </div>
+
                   {/* Stars */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-5">
                     {Array.from({ length: testimonial.rating }).map((_, j) => (
                       <svg
                         key={j}
-                        width="18"
-                        height="18"
+                        width="16"
+                        height="16"
                         viewBox="0 0 24 24"
                         fill="#d4af37"
+                        className="text-glow-orange"
                       >
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
@@ -122,23 +138,30 @@ export default function Testimonials() {
                   </div>
 
                   {/* Quote */}
-                  <p className="text-white/80 text-base leading-relaxed mb-6 italic">
+                  <p className="text-white/90 text-base md:text-lg leading-relaxed mb-6 italic tracking-wide relative z-10">
                     &ldquo;{testimonial.quote}&rdquo;
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-white font-semibold text-sm">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-white/40 text-xs mt-0.5">
-                        {testimonial.role}
-                      </p>
+                  <div className="flex items-center justify-between relative z-10">
+                    <div className="flex items-center gap-4">
+                      {/* Avatar initials with premium gradient */}
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-brand/20 to-teal-accent/20 border border-white/10 flex items-center justify-center font-clash font-bold text-white text-sm shadow-premium-sm">
+                        {getInitials(testimonial.name)}
+                      </div>
+                      <div>
+                        <p className="text-white font-bold text-sm tracking-wide">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-white/40 text-[10px] font-semibold tracking-wider uppercase mt-0.5">
+                          {testimonial.role}
+                        </p>
+                      </div>
                     </div>
+                    
                     {testimonial.hasVideo && (
-                      <button className="flex items-center gap-2 text-gold-brand text-xs font-semibold hover:text-gold-light transition-colors">
-                        <div className="w-8 h-8 bg-gold-brand/15 rounded-full flex items-center justify-center">
+                      <button className="flex items-center gap-2 text-gold-brand text-xs font-bold uppercase tracking-wider hover:text-gold-light transition-colors active:scale-95">
+                        <div className="w-8 h-8 bg-gold-brand/10 border border-gold-brand/20 rounded-full flex items-center justify-center">
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="#d4af37">
                             <polygon points="5,3 19,12 5,21" />
                           </svg>

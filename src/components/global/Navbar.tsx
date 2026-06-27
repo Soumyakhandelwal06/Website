@@ -48,8 +48,8 @@ export default function Navbar() {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-[9000] transition-all duration-500 ${
           scrolled
-            ? "bg-navy/95 backdrop-blur-md shadow-lg py-3"
-            : "bg-transparent py-5"
+            ? "bg-navy/85 backdrop-blur-xl border-b border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)] py-3"
+            : "bg-transparent py-6"
         } ${navVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -60,16 +60,16 @@ export default function Navbar() {
               e.preventDefault();
               handleNavClick("#hero");
             }}
-            className="logo-pulse flex items-center gap-3"
+            className="logo-pulse flex items-center gap-3 group"
           >
-            <div className="w-10 h-10 bg-emerald-brand rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-emerald-brand to-teal-accent rounded-xl flex items-center justify-center shadow-lg shadow-emerald-brand/20 transition-transform duration-300 group-hover:scale-105">
               <span className="text-white font-clash font-bold text-xl">A</span>
             </div>
             <div>
-              <span className="text-white font-clash font-bold text-lg leading-none block">
+              <span className="text-white font-clash font-bold text-lg leading-none block tracking-wide group-hover:text-emerald-light transition-colors">
                 {BRAND.name}
               </span>
-              <span className="text-gold-brand text-[10px] font-medium tracking-wider uppercase block">
+              <span className="text-gold-brand text-[9px] font-semibold tracking-widest uppercase block mt-0.5">
                 {BRAND.tagline}
               </span>
             </div>
@@ -85,10 +85,10 @@ export default function Navbar() {
                   e.preventDefault();
                   handleNavClick(link.href);
                 }}
-                className="text-white/80 hover:text-white text-sm font-medium transition-colors relative group"
+                className="text-white/70 hover:text-white text-sm font-medium transition-all duration-300 relative group py-2"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold-brand transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-gold-brand to-gold-light transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
             <a
@@ -97,7 +97,7 @@ export default function Navbar() {
                 e.preventDefault();
                 handleNavClick("#contact");
               }}
-              className="glow-gold bg-gold-brand text-navy font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-gold-light transition-colors"
+              className="bg-gradient-to-r from-gold-brand to-gold-dark text-navy font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full hover:scale-105 hover:shadow-lg hover:shadow-gold-brand/20 active:scale-95 transition-all duration-300"
             >
               Book Demo
             </a>
@@ -105,22 +105,22 @@ export default function Navbar() {
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 z-[9100]"
+            className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-[9100] rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             <span
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              className={`w-5 h-0.5 bg-white transition-all duration-300 ${
                 mobileOpen ? "rotate-45 translate-y-2" : ""
               }`}
             />
             <span
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              className={`w-5 h-0.5 bg-white transition-all duration-300 ${
                 mobileOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`w-6 h-0.5 bg-white transition-all duration-300 ${
+              className={`w-5 h-0.5 bg-white transition-all duration-300 ${
                 mobileOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
             />
@@ -136,32 +136,37 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 z-[8999] md:hidden"
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[8999] md:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-72 bg-navy z-[9050] md:hidden flex flex-col pt-24 px-8"
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
+              className="fixed top-0 right-0 bottom-0 w-80 bg-navy/95 backdrop-blur-2xl border-l border-white/5 z-[9050] md:hidden flex flex-col pt-28 px-10"
             >
-              {NAV_LINKS.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(link.href);
-                  }}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="text-white text-lg font-medium py-3 border-b border-white/10 hover:text-gold-brand transition-colors"
-                >
-                  {link.label}
-                </motion.a>
-              ))}
+              <div className="flex flex-col gap-2">
+                {NAV_LINKS.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="text-white/80 hover:text-white text-xl font-clash font-medium py-3.5 border-b border-white/5 flex items-center justify-between group transition-colors"
+                  >
+                    <span>{link.label}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0">
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </motion.a>
+                ))}
+              </div>
               <motion.a
                 href="#contact"
                 onClick={(e) => {
@@ -171,7 +176,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mt-8 bg-gold-brand text-navy font-semibold text-center py-3 rounded-full"
+                className="mt-12 bg-gradient-to-r from-gold-brand to-gold-dark text-navy font-bold text-center py-4 rounded-full shadow-lg shadow-gold-brand/20 active:scale-95 transition-all duration-300"
               >
                 Book Free Demo
               </motion.a>
